@@ -1,0 +1,140 @@
+/* Basic reset and body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #222;  /* Light black background */
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Sheikh image styling */
+#sheikh-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 20px 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#sheikh-img:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.6); /* Glowing effect */
+}
+
+/* Container for the login and game UI */
+#login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-container {
+  display: none;
+  text-align: center;
+}
+
+/* Upgrade buttons styling */
+#upgrades button {
+  display: inline-block;
+  background-color: #333;  /* Dark gray button background */
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 15px 25px;
+  margin: 10px;
+  width: 250px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#upgrades button:hover {
+  background-color: #555;  /* Lighter gray on hover */
+  transform: scale(1.05);  /* Slightly bigger on hover */
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);  /* Button glow effect */
+}
+
+#upgrades button:active {
+  background-color: #444;  /* Darker shade when clicked */
+  transform: scale(0.98);  /* Slight shrink when clicked */
+}
+
+/* Admin code input field styling */
+input#admin-code {
+  margin-top: 20px;
+  padding: 10px;
+  width: 300px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  color: #fff;
+  background-color: #333;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input#admin-code:focus {
+  background-color: #444;
+  outline: none;
+  transform: scale(1.02);  /* Slight zoom on focus */
+}
+
+/* Admin panel styling */
+#admin-panel {
+  margin-top: 20px;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+}
+
+#admin-panel h3 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#admin-panel p {
+  color: #ccc;
+  font-size: 16px;
+}
+
+/* General UI styling for coins, level, and user info */
+h2, p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #fff;
+}
+
+#coin-count, #level-count {
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFB800;  /* Gold color for coins and levels */
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #sheikh-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  #upgrades button {
+    width: 200px;
+  }
+
+  input#admin-code {
+    width: 250px;
+  }
+}

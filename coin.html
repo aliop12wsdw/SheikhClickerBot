@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sheikh Islami Clicker</title>
+  <link rel="stylesheet" href="coin.css">
+</head>
+<body>
+  <div id="login-container">
+    <h1>Welcome to Sheikh Islami Clicker!</h1>
+    <!-- Telegram Login -->
+    <script async src="https://telegram.org/js/telegram-widget.js?22"
+      data-telegram-login="SheikhTapperBot"
+      data-size="large"
+      data-userpic="true"
+      data-radius="10"
+      data-request-access="write"
+      data-on-auth="onTelegramAuth">
+    </script>
+  </div>
+
+  <div id="game-container" style="display:none;">
+    <h2 id="welcome-text"></h2>
+    <p>Coins: <span id="coin-count">0</span></p>
+    <p>Level: <span id="level-count">1</span></p>
+    <img src="شیخ الاسلامی.png" id="sheikh-img" alt="Click Me!">
+    
+    <div id="upgrades">
+      <button onclick="buyUpgrade('تسبیح', 10, 1)">Buy تسبیح (+1) - 10 Coins</button>
+      <button onclick="buyUpgrade('عمامه', 50, 3)">Buy عمامه (+3) - 50 Coins</button>
+      <button onclick="buyUpgrade('عبا', 200, 10)">Buy عبا (+10) - 200 Coins</button>
+      <button onclick="buyUpgrade('فتوا', 500, 0, true)">Buy فتوا (Auto Click) - 500 Coins</button>
+    </div>
+
+    <input id="admin-code" placeholder="Enter admin code">
+    <div id="admin-panel" style="display:none;"></div>
+  </div>
+
+  <script src="coin.js"></script>
+</body>
+</html>
