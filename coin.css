@@ -1,44 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sheikh Islami Clicker Game</title>
-  <link rel="stylesheet" href="coin.css">
-</head>
-<body>
-  <div id="login-container">
-    <script async src="https://telegram.org/js/telegram-widget.js?22"
-      data-telegram-login="SheikhTapperBot"
-      data-size="large"
-      data-userpic="true"
-      data-radius="10"
-      data-request-access="write"
-      data-on-auth="onTelegramAuth">
-    </script>
-  </div>
+body {
+  background-color: #111;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 20px;
+}
 
-  <div id="game-container" style="display:none;">
-    <h2>Welcome, <span id="username"></span>!</h2>
-    <p>Coins: <span id="coins">0</span> 🪙</p>
-    <p>Level: <span id="level">1</span></p>
+h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
 
-    <img src="sheikh.png" alt="Sheikh" id="sheikh-img">
+p {
+  font-size: 20px;
+  margin: 5px;
+}
 
-    <div id="upgrades">
-      <button onclick="buyUpgrade('تسبیح', 10, 1)">Buy تسبیح (+1)</button>
-      <button onclick="buyUpgrade('عمامه', 50, 3)">Buy عمامه (+3)</button>
-      <button onclick="buyUpgrade('عبا', 150, 10)">Buy عبا (+10)</button>
-      <button onclick="buyUpgrade('فتوا', 300, 0, true)">Buy فتوا (Auto)</button>
-    </div>
+#sheikh-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-top: 20px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  cursor: pointer;
+}
 
-    <input id="admin-code" placeholder="Enter Secret Code" oninput="checkAdminCode()">
+#sheikh-img:active {
+  transform: scale(1.1);
+}
 
-    <div id="admin-panel" style="display:none;">
-      <h3>Admin Panel</h3>
-      <div id="leaderboard"></div>
-    </div>
-  </div>
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
 
-  <script src="coin.js"></script>
-</body>
-</html>
+button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+input {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background-color: #1e1e1e;
+  color: white;
+  width: 60%;
+  max-width: 300px;
+}
