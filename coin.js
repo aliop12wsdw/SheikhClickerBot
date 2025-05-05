@@ -1,74 +1,86 @@
-let coinCount = 0;
+let coins = 0;
 let level = 1;
 let clickPower = 1;
-let autoClickEnabled = false;
-let user = null;
+let autoClick = false;
+let username = "";
 
-function onTelegramAuth(userData) {
-  user = userData;
-  localStorage.setItem('telegramUser', JSON.stringify(user));
-  document.getElementById('welcome-text').innerText = `Hello, ${user.first_name}`;
-  document.getElementById('login-container').style.display = 'none';
-  document.getElementById('game-container').style.display = 'block';
-
-  // Load progress
-  const savedCoins = localStorage.getItem(`${user.id}_coins`);
-  const savedLevel = localStorage.getItem(`${user.id}_level`);
-  const savedPower = localStorage.getItem(`${user.id}_power`);
-  if (savedCoins) coinCount = parseInt(savedCoins);
-  if (savedLevel) level = parseInt(savedLevel);
-  if (savedPower) clickPower = parseInt(savedPower);
-
-  updateUI();
+function onTelegramAuth(user) {
+  username = user.first_name;
+  document.getElementById("username").innerText = username;
+  document.getElementById("login-container").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+  loadGame();
+  initAutoClick();
 }
 
-function updateUI() {
-  document.getElementById("coin-count").innerText = coinCount;
-  document.getElementById("level-count").innerText = level;
-  localStorage.setItem(`${user.id}_coins`, coinCount);
-  localStorage.setItem(`${user.id}_level`, level);
-  localStorage.setItem(`${user.id}_power`, clickPower);
+function loadGame() {
+  const saved = JSON.parse(localStorage.getItem("sheikh_game_" + username)) || {};
+  coins = saved.coins || 0;
+  level = Math.floor(coins / 100) + 1;
+  clickPower = saved.clickPower || 1;
+  autoClick = saved.autoClick || false;
+  document.getElementById("coins").innerText = coins;
+  document.getElementById("level").innerText = level;
+}
+
+function saveGame() {
+  localStorage.setItem("sheikh_game_" + username, JSON.stringify({
+    coins,
+    clickPower,
+    autoClick
+  }));
 }
 
 document.getElementById("sheikh-img").addEventListener("click", () => {
-  coinCount += clickPower;
-  if (coinCount >= level * 100) {
-    level++;
-  }
-  updateUI();
+  coins += clickPower;
+  updateDisplay();
 });
 
-function buyUpgrade(name, cost, power, auto = false) {
-  if (coinCount >= cost) {
-    coinCount -= cost;
-    if (auto) {
-      autoClickEnabled = true;
-      setInterval(() => {
-        coinCount += clickPower;
-        updateUI();
-      }, 1000);
+function buyUpgrade(name, cost, power, isAuto = false) {
+  if (coins >= cost) {
+    coins -= cost;
+    if (isAuto) {
+      autoClick = true;
+      initAutoClick();
     } else {
       clickPower += power;
     }
-    updateUI();
-  } else {
-    alert("Not enough coins!");
+    updateDisplay();
   }
 }
 
-document.getElementById("admin-code").addEventListener("input", function () {
-  if (this.value === "شیخ کوچولو") {
-    const panel = document.getElementById("admin-panel");
-    panel.style.display = "block";
-    panel.innerHTML = `<h3>Leaderboard</h3>`;
+function updateDisplay() {
+  level = Math.floor(coins / 100) + 1;
+  document.getElementById("coins").innerText = coins;
+  document.getElementById("level").innerText = level;
+  saveGame();
+}
 
-    for (let key in localStorage) {
-      if (key.endsWith("_coins")) {
-        const id = key.replace("_coins", "");
-        const coins = localStorage.getItem(key);
-        const name = JSON.parse(localStorage.getItem("telegramUser"))?.first_name || "User";
-        panel.innerHTML += `<p>${name} (ID ${id}): ${coins} coins</p>`;
-      }
+function initAutoClick() {
+  if (autoClick && !window.autoInterval) {
+    window.autoInterval = setInterval(() => {
+      coins += clickPower;
+      updateDisplay();
+    }, 1000);
+  }
+}
+
+function checkAdminCode() {
+  const input = document.getElementById("admin-code").value;
+  if (input === "شیخ کوچولو") {
+    document.getElementById("admin-panel").style.display = "block";
+    showLeaderboard();
+  }
+}
+
+function showLeaderboard() {
+  let leaderboard = "";
+  for (let key in localStorage) {
+    if (key.startsWith("sheikh_game_")) {
+      const user = key.replace("sheikh_game_", "");
+      const data = JSON.parse(localStorage.getItem(key));
+      leaderboard += `<p>${user}: ${data.coins || 0} coins</p>`;
     }
   }
-});
+  document.getElementById("leaderboard").innerHTML = leaderboard;
+}
